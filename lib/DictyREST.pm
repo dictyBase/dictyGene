@@ -10,6 +10,7 @@ use File::Spec::Functions;
 use Bio::Chado::Schema;
 use DictyREST::Renderer::TT;
 use DictyREST::Renderer::JSON;
+use DictyREST::Renderer::JSON_Generic;
 use DictyREST::Helper;
 use Homology::Chado::DataSource;
 use CHI;
@@ -84,6 +85,10 @@ sub startup {
         action     => 'sub_section',
         format     => 'json'
     );
+    
+    #organisms
+    $router->route('/organism')
+        ->to( controller => 'organism', action => 'index', format => 'json');
 
     #set up various renderer
     $self->set_renderer();
@@ -164,7 +169,7 @@ sub set_renderer {
     if ( !-e $compile_dir ) {
         $self->log->error("folder for template compilation is absent");
     }
-
+    
     my $tt = DictyREST::Renderer::TT->new(
         path => $self->template_path,
 
@@ -175,9 +180,12 @@ sub set_renderer {
         },
     );
     my $json = DictyREST::Renderer::JSON->new();
+    my $json_generic = DictyREST::Renderer::JSON_Generic->new();
+    
     $self->renderer->add_handler(
         tt   => $tt->build(),
         json => $json->build(),
+        json_generic => $json_generic->build()
     );
     $self->renderer->default_handler('tt');
 }
