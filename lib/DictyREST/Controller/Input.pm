@@ -44,6 +44,12 @@ sub check_for_redirect {
     return;
 }
 
+sub set_species {
+    my ( $self, $c ) = @_;
+    $self->app->helper->species( $c->stash('species') );
+    return $self->validate($c);
+}
+
 sub validate {
     my ($self)  = @_;
     my $id      = $self->stash('id');
@@ -76,7 +82,7 @@ sub validate {
         else {
             $self->stash(
                 deleted => 1,
-                message => "$gene_id has been deleted from dictyBase",
+                message => "$gene_id has been deleted",
                 header  => 'Error page',
             );
 
