@@ -15,13 +15,14 @@ __PACKAGE__->attr( 'config', default => sub { Config::Simple->new() } );
 __PACKAGE__->attr('template_path');
 __PACKAGE__->attr( 'has_config', default => 0 );
 __PACKAGE__->attr( 'helper', default => sub { DictyREST::Helper->new() } );
+__PACKAGE__->attr('prefix');
 
 # This will run once at startup
 sub startup {
     my ($self) = @_;
 
     #default log level
-    $self->log->level('error');
+    $self->log->level('debug');
     my $router = $self->routes();
 
     #$self->log->debug("starting up");
@@ -29,14 +30,17 @@ sub startup {
     #routing setup
     my $base = $router->namespace();
     $router->namespace( $base . '::Controller' );
-    $router->route('/gene/:id/:tab/:subid/:section')
-        ->to( controller => 'tab', action => 'sub_section' );
-    $router->route('/gene/:id/:tab/:section')
+
+    my $bridge = $router->bridge('/gene')->to(
+        controller => 'input',
+        action     => 'check_for_redirect'
+    );
+    $bridge->route('/:id')->to( controller => 'page', action => 'index' );
+    $bridge->route('/:id/:tab')->to( controller => 'page', action => 'tab' );
+    $bridge->route('/:id/:tab/:section')
         ->to( controller => 'tab', action => 'section' );
-    $router->route('/gene/:id/:tab')
-        ->to( controller => 'page', action => 'tab' );
-    $router->route('/gene/:id')
-        ->to( controller => 'page', action => 'index' );
+    $bridge->route('/:id/:tab/:subid/:section')
+        ->to( controller => 'tab', action => 'sub_section' );
 
     #config file setup
     $self->set_config();
@@ -73,6 +77,12 @@ sub set_config {
     #$self->log->debug(qq/got config file $file/);
     $self->config->read( catfile( $folder, $file ) );
     $self->has_config(1);
+
+    my $prefix_has = {
+        map { $_ => 1 } split /:/,
+        $self->config->param('multigenome.prefix_list')
+    };
+    $self->prefix($prefix_has);
 
 }
 
