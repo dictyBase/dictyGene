@@ -113,15 +113,9 @@ my $config = {
             'BLAST_SERVER_USER' => 'ubuntu',
             'ORGANISMS' => {
                            'ORGANISM' => {
-                                         'physarum' => {
-                                                       'TAXON_ID' => '5791',
-                                                       'SPECIES' => 'polycephalum',
-                                                       'GENUS' => 'Physarum',
-                                                       'IDENTIFIER_PREFIX' => 'PPO'
-                                                     },
                                          'dicty' => {
                                                     'TAXON_ID' => '44689',
-                                                    'SITE_URL' => 'http://dictybase.org',
+                                                    'SITE_URL' => 'http://192.168.60.10',
                                                     'SPECIES' => 'discoideum',
                                                     'GENUS' => 'Dictyostelium',
                                                     'IDENTIFIER_PREFIX' => 'DDB'
@@ -137,6 +131,7 @@ my $config = {
                          },
             'SWISH_ROOT' => '/usr/local/dicty/util/SWISH-E',
             'WEB_LIB_ROOT' => '/usr/local/dicty/www_dictybase/db/lib',
+            'BLAST_LINK_OUT' => 'http://192.168.60.10/gene',
             'QUICKSEARCH_CLASSES' => '
   dicty::UI::Search::Gene
   dicty::UI::Search::Gene_product
@@ -155,7 +150,7 @@ my $config = {
             'CHADO_USER' => 'DPUR_CHADO',
             'WEB_URL_ROOT' => '192.168.60.50',
             'WEB_WWW_ROOT' => '/usr/local/dicty/www_dictybase',
-            'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/X11R6/bin:/usr/local/instantclient_10_2/bin/',
+            'PATH' => '/home/ubuntu/sandbox/bin:/home/ubuntu/bin:/home/ubuntu/sandbox/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/X11R6/bin:/usr/local/instantclient_10_2/bin/:/usr/local/instantclient_10_2/bin/',
             'PERL5LIB' => '/usr/local/dicty/lib',
             'BLAST_SERVER_PW' => 'dicty123',
             'TIME_STYLE' => 'locale',
@@ -180,10 +175,12 @@ my $config = {
             'LD_LIBRARY_PATH' => '/usr/local/instantclient_10_2',
             'BIN_DIR' => '/usr/local/dicty/bin',
             'WEB_DB_ROOT' => '/usr/local/dicty/www_dictybase/db',
+            'ORACLE_SID' => 'dictybase',
             'BLAST_SERVER' => '192.168.60.30',
             'PORT' => '80',
             'APACHE_LOGS_DIR' => '/var/log/apache2',
             'SITE_ADMIN_EMAIL' => 'siddhartha-basu@northwestern.edu',
+            'DBHOST' => '192.168.60.10',
             'DBUSER' => 'DPUR_CGM_DDB',
             'MART_USER' => 'DPUR_MART',
             'MART_UID' => 'DPUR_MART/MARTRCTDWAK@DICTYBASE',
