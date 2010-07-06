@@ -7,15 +7,17 @@ use base 'Mojolicious';
 use Config::Simple;
 use Carp;
 use File::Spec::Functions;
+use Bio::Chado::Schema;
 use DictyREST::Renderer::TT;
 use DictyREST::Renderer::JSON;
 use DictyREST::Helper;
 
-__PACKAGE__->attr( 'config', default => sub { Config::Simple->new() } );
+__PACKAGE__->attr( 'config' => sub { Config::Simple->new() } );
 __PACKAGE__->attr('template_path');
-__PACKAGE__->attr( 'has_config', default => 0 );
-__PACKAGE__->attr( 'helper', default => sub { DictyREST::Helper->new() } );
+__PACKAGE__->attr( 'has_config' => 0 );
+__PACKAGE__->attr( 'helper' => sub { DictyREST::Helper->new() } );
 __PACKAGE__->attr('prefix');
+__PACKAGE__->attr('model');
 
 # This will run once at startup
 sub startup {
@@ -30,16 +32,19 @@ sub startup {
     #routing setup
     my $base = $router->namespace();
     $router->namespace( $base . '::Controller' );
+    #$self->log->debug($base);
 
     my $bridge = $router->bridge('/gene')->to(
         controller => 'input',
         action     => 'check_for_redirect'
     );
-    $bridge->route('/:id')->to( controller => 'page', action => 'index' );
-    $bridge->route('/:id/:tab')->to( controller => 'page', action => 'tab' );
-    $bridge->route('/:id/:tab/:section')
+    $bridge->route('/:id')
+        ->to( controller => 'page', action => 'index' );
+    
+    $bridge->route('/:id/:tab')->via('get')->to(controller => 'page',action => 'tab' );
+    $bridge->route('/:id/:tab/:section')->via('get')
         ->to( controller => 'tab', action => 'section' );
-    $bridge->route('/:id/:tab/:subid/:section')
+    $bridge->route('/:id/:subid/:section')->via('get')
         ->to( controller => 'tab', action => 'sub_section' );
 
     #config file setup
@@ -47,6 +52,8 @@ sub startup {
 
     #set up various renderer
     $self->set_renderer();
+    $self->helper->app($self);
+    $self->set_dbh;
 
     #$self->log->debug("done with startup");
 }
@@ -109,9 +116,10 @@ sub set_renderer {
         : $self->home->rel_dir('log/prod_cache');
 
     my $tt = DictyREST::Renderer::TT->new(
-        path        => $self->template_path,
-        compile_dir => $compile_dir,
-        option      => {
+        path => $self->template_path,
+
+        #compile_dir => $compile_dir,
+        option => {
             PRE_PROCESS  => $self->config->param('genepage.header') || '',
             POST_PROCESS => $self->config->param('genepage.footer') || '',
         },
@@ -122,6 +130,18 @@ sub set_renderer {
         json => $json->build(),
     );
     $self->renderer->default_handler('tt');
+}
+
+sub set_dbh {
+    my $self   = shift;
+    my $opt    = $self->config->param('database.opt');
+    my $schema = Bio::Chado::Schema->connect(
+        $self->config->param('database.dsn'),
+        $self->config->param('database.user'),
+        $self->config->param('database.pass'),
+        { $opt => 1 }
+    );
+    $self->model($schema);
 }
 
 1;

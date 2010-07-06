@@ -7,30 +7,92 @@ use Carp;
 use version; our $VERSION = qv('1.0.0');
 
 # Other modules:
+use dicty::Feature;
 use base qw/Mojolicious::Controller/;
 
 # Module implementation
 #
 sub check_for_redirect {
-    my ( $self, $c ) = @_;
-    my $id         = $c->stash('id');
-    return 1 if $id !~ /^([A-Z]+_G)\d+$/;
-    my $prefix = $1;
-    my $prefix_map = $self->app->prefix;
+    my ($self) = @_;
+    my $id = $self->stash('id');
 
-    #no redirection needed
-    return 1 if not defined $prefix_map->{$prefix};
+    my $prefix;
+    my $prefix_map = $self->app->prefix;
+    if ( $id =~ /^([A-Z]+_G)\d+$/ )
+    {    #it is a gene id,  now check which species it belong
+        $prefix = $1;
+
+        #no redirection needed
+        return $self->validate() if not defined $prefix_map->{$prefix};
+    }
+    else {
+    	$self->app->log->debug("it is not gene_id");
+
+        #probably not gene id
+        return $self->validate;
+    }
 
     #get the species name
     my $species = $self->app->config->param("multigenome.$prefix");
 
     #now do the redirection
     my $new_url
-        = $self->app->config->param('multigenome.host') . '/' . $species . '/gene/' . $id;
-    my $res = $self->res;
-    $res->code(301);
-    $res->headers->location($new_url);
-    return ;
+        = $self->app->config->param('multigenome.host') . '/' 
+        . $species
+        . '/gene/'
+        . $id;
+    $self->redirect_to($new_url);
+    return;
+}
+
+sub validate {
+    my ($self)  = @_;
+    my $id      = $self->stash('id');
+    my $app     = $self->app;
+    my $gene_id = $app->helper->process_id($id);
+    $app->log->debug("got gene_id: $gene_id");
+    if ( !$gene_id ) {
+        $self->render(
+            template => $app->config->param('genepage.error'),
+            message  => "Input $id not found",
+            error    => 1,
+            header   => 'Error page',
+        );
+        return;
+    }
+
+    $app->log->debug($ENV{CHADO_UID});
+
+    #logic for deleted feature
+    my $gene_feat = dicty::Feature->new( -primary_id => $gene_id );
+    if ( $gene_feat->is_deleted() ) {
+        if ( my $replaced = $gene_feat->replaced_by() )
+        {    #is it being replaced
+            $self->stash(
+                message =>
+                    "$gene_id has been deleted from dictyBase. It has been replaced by",
+                replaced => 1,
+                id       => $replaced,
+                header   => 'Error page',
+                url      => 'http://' . $ENV{WEB_URL_ROOT} . '/gene',
+            );
+        }
+        else {
+            $self->stash(
+                deleted => 1,
+                message => "$gene_id has been deleted from dictyBase",
+                header  => 'Error page',
+            );
+
+        }
+        $self->render( template => $app->config->param('genepage.error') );
+        return;
+    }
+    $self->app->log->debug("ok returning true with $gene_id");
+    $self->stash( gene_id  => $gene_id );
+    $self->stash( base_url => $self->req->url->base );
+    $self->app->log->debug($self->req->url->base);
+    return 1;
 }
 
 1;    # Magic true value required at end of module

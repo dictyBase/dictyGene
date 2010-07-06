@@ -3,11 +3,12 @@ package DictyREST::Helper;
 use version; our $VERSION = qv('1.0.0');
 
 # Other modules:
-use base qw/Mojo::Base/;
-use Module::Load;
+use base qw/Mojolicious/;
 
 # Module implementation
 #
+
+__PACKAGE__->attr('app');
 
 sub is_name {
     my ( $self, $id ) = @_;
@@ -23,11 +24,17 @@ sub is_ddb {
 
 sub name2id {
     my ( $self, $id ) = @_;
-    my $feat;
-    load dicty::Gene;
-    eval { $feat = dicty::Gene->new( -name => $id ); };
-    return 0 if $@;
-    return $feat->primary_id();
+    my $model = $self->app->model;
+    my $rs    = $model->resultset('Sequence::Feature')->search(
+        { name => $id },
+        {   prefetch => 'dbxref',
+            cache    => 1
+        }
+    );
+
+    return 0 if $rs->count == 0;
+    my $gene_id = $rs->first->dbxref->accession;
+    $gene_id;
 }
 
 sub process_id {
@@ -54,8 +61,6 @@ sub transcript_id {
     my ($trans) = @{ $gene->primary_features() };
     return $trans->primary_id if $trans;
 }
-
-
 
 1;    # Magic true value required at end of module
 

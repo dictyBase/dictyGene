@@ -20,9 +20,9 @@ __PACKAGE__->attr('option');
 __PACKAGE__->attr('compile_dir');
 
 sub new {
-    my ( $class, %arg ) = @_;
+    my ( $selflass, %arg ) = @_;
     my $self = {};
-    bless $self, $class;
+    bless $self, $selflass;
 
     foreach my $param (qw/path option compile_dir/) {
         $self->$param( $arg{$param} ) if defined $arg{$param};
@@ -39,9 +39,9 @@ sub build {
     my $subdir = [ map { $_->stringify } grep { -d $_ } $dir->children ];
     my $option = $self->option || '';
     $option->{INCLUDE_PATH} = $subdir;
-    $option->{CACHE_SIZE}   = 128;
-    $option->{COMPILE_EXT}  = '.ttc';
-    $option->{COMPILE_DIR}  = $self->compile_dir;
+    #$option->{CACHE_SIZE}   = 128;
+    #$option->{COMPILE_EXT}  = '.ttc';
+    #$option->{COMPILE_DIR}  = $self->compile_dir;
     $self->template( Template->new($option) );
 
     return sub { $self->process(@_); };
@@ -51,13 +51,13 @@ sub process {
     my ( $self, $renderer, $c, $output ) = @_;
     return 0 if $c->stash('format') ne 'html';
     my $template = $c->stash('template');
-    $c->app->log->warn(qq/template $template/);
+    $c->app->log->warn("template $template");
 
     #the template will decide how to display the page title
     #except the error page
     $c->stash( default => 1 ) if $c->stash('header') ne 'Error page';
     my $status
-        = $self->template->process( $template, { %{ $c->stash }, c => $c },
+        = $self->template->process( $template, { %{ $c->stash }, c => $self },
         $output );
     if ( !$status ) {
         cluck $self->template->error;
