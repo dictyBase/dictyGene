@@ -48,11 +48,9 @@ sub build {
 }
 
 sub process {
-    my ( $self, $renderer, $c, $output ) = @_;
-    return 0 if $c->stash('format') ne 'html';
-    my $template = $c->stash('template');
+    my ( $self, $r,  $c, $output,  $options ) = @_;
+    my $template = $r->template_name($options);
     $c->app->log->warn("template $template");
-
     #the template will decide how to display the page title
     #except the error page
     $c->stash( default => 1 ) if $c->stash('header') ne 'Error page';

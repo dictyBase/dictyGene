@@ -62,7 +62,10 @@ sub section_json {
     }
 
     my $obj = $factory->instantiate;
-    $self->render( handler => 'json', data => $obj );
+    $obj->init();
+    my $conf = $obj->config();
+    $self->render_json( [ map { $_->to_json } @{ $conf->panels } ] );
+
 }
 
 sub sub_section {
@@ -74,8 +77,11 @@ sub sub_section {
         -tab        => $self->stash('tab'),
         -base_url   => $self->stash('base_url')
     );
+
     my $obj = $factory->instantiate;
-    $self->render( handler => 'json', data => $obj );
+    $obj->init();
+    my $conf = $obj->config();
+    $self->render_json( [ map { $_->to_json } @{ $conf->panels } ] );
 }
 
 1;

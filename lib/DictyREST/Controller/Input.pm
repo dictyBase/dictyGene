@@ -26,8 +26,6 @@ sub check_for_redirect {
         return $self->validate() if not defined $prefix_map->{$prefix};
     }
     else {
-    	$self->app->log->debug("it is not gene_id");
-
         #probably not gene id
         return $self->validate;
     }
@@ -50,7 +48,6 @@ sub validate {
     my $id      = $self->stash('id');
     my $app     = $self->app;
     my $gene_id = $app->helper->process_id($id);
-    $app->log->debug("got gene_id: $gene_id");
     if ( !$gene_id ) {
         $self->render(
             template => $app->config->param('genepage.error'),
@@ -60,8 +57,6 @@ sub validate {
         );
         return;
     }
-
-    $app->log->debug($ENV{CHADO_UID});
 
     #logic for deleted feature
     my $gene_feat = dicty::Feature->new( -primary_id => $gene_id );

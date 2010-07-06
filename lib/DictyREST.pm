@@ -32,6 +32,7 @@ sub startup {
     #routing setup
     my $base = $router->namespace();
     $router->namespace( $base . '::Controller' );
+
     #$self->log->debug($base);
 
     my $bridge = $router->bridge('/gene')->to(
@@ -39,13 +40,22 @@ sub startup {
         action     => 'check_for_redirect'
     );
     $bridge->route('/:id')
-        ->to( controller => 'page', action => 'index' );
-    
-    $bridge->route('/:id/:tab')->via('get')->to(controller => 'page',action => 'tab' );
+        ->to( controller => 'page', action => 'index', format => 'html' );
+
+    $bridge->route('/:id/:tab')->via('get')->to(
+        controller => 'page',
+        action     => 'tab',
+        foramt     => 'html'
+    );
+
     $bridge->route('/:id/:tab/:section')->via('get')
-        ->to( controller => 'tab', action => 'section' );
-    $bridge->route('/:id/:subid/:section')->via('get')
-        ->to( controller => 'tab', action => 'sub_section' );
+        ->to( controller => 'tab', action => 'section', format => 'html' );
+
+    $bridge->route('/:id/:tab/:subid/:section')->via('get')->to(
+        controller => 'tab',
+        action     => 'sub_section',
+        format     => 'json'
+    );
 
     #config file setup
     $self->set_config();

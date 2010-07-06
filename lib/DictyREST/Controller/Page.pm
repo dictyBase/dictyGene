@@ -14,6 +14,7 @@ sub index {
 
 sub index_html {
     my ($self) = @_;
+    my $app = $self->app;
 
     #database query
     my $db = dicty::UI::Tabview::Page::Gene->new(
@@ -24,7 +25,7 @@ sub index_html {
 
     #default rendering
     $self->stash( $db->result() );
-    $app->log->debug( $app->config->param('genepage.template') );
+    $self->app->log->debug( $app->config->param('genepage.template') );
     $self->render( template => $app->config->param('genepage.template') );
 }
 
@@ -35,7 +36,13 @@ sub index_json {
         -tab        => 'gene',
         -primary_id => $self->stash('gene_id'),
     );
-    $self->render( handler => 'json', data => $factory->instantiate );
+    my $obj = $factory->instantiate;
+
+    #routine to get perl data structure that will be converted to json
+    $obj->init();
+    my $conf = $obj->config();
+    $self->render_json( [ map { $_->to_json } @{ $conf->panels } ] );
+
 }
 
 sub tab {
@@ -48,6 +55,7 @@ sub tab_html {
     my ($self)  = @_;
     my $app     = $self->app;
     my $gene_id = $self->stash('gene_id');
+    my $tab     = $self->stash('tab');
 
     my $db;
     if ( $app->config->param('tab.dynamic') eq $tab ) {
@@ -80,12 +88,17 @@ sub tab_html {
 sub tab_json {
     my ($self) = @_;
     my $factory = dicty::Factory::Tabview::Tab->new(
-        -tab        => $tab,
+        -tab        => $self->stash('tab'),
         -primary_id => $self->stash('gene_id'),
         -base_url   => $self->stash('base_url')
     );
-    my $tabobj = $factory->instantiate;
-    $self->render( handler => 'json', data => $tabobj );
+    my $obj = $factory->instantiate;
+
+    #routine to get perl data structure that will be converted to json
+    $obj->init();
+    my $conf = $obj->config();
+    $self->render_json( [ map { $_->to_json } @{ $conf->panels } ] );
+
 }
 
 1;

@@ -22,16 +22,3 @@ my $builder = DictyRESTBuilder->new(
 
 $builder->create_build_script();
 
-
-package DictyRESTBuilder;
-
-use base qw/Module::Build/;
-
-sub ACTION_deploy {
-    my ($self) = @_;
-    $self->depends('dist');
-    my $file = catfile( $self->base_dir, $self->dist_dir . '.tar.gz' );
-    print $file, "\n";
-}
-
-1;

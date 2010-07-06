@@ -3,6 +3,7 @@ package DictyREST::Helper;
 use version; our $VERSION = qv('1.0.0');
 
 # Other modules:
+use dicty::Feature;
 use base qw/Mojolicious/;
 
 # Module implementation
@@ -54,7 +55,7 @@ sub is_dynamic {
 
 sub transcript_id {
     my ( $self, $id ) = @_;
-    load dicty::Feature;
+    #load dicty::Feature;
     my $gene;
     eval { $gene = dicty::Feature->new( -primary_id => $id ); };
     return 0 if $@;

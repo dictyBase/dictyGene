@@ -1,45 +1,22 @@
-package DictyREST::Renderer::JSON;
+package DictyREST::Controller::Wrapper;
 
-use warnings;
 use strict;
-use Carp;
+use base qw/Mojolicious::Controller/;
 
-use version; our $VERSION = qv('1.0.0');
+use version; our $VERSION = qv('0.1');
 
 # Other modules:
-use base 'Mojo::Base';
-use JSON;
+sub tabview_json {
+	my ($self) = @_;
+	$self->app->log->debug("in json converter");
+	my $obj = $self->stash('data');
+    $obj->init;
+    my $conf = $obj->config;
+    $self->render_json( [ map { $_->to_json } @{ $conf->panels } ] );
+}
 
 # Module implementation
 #
-
-__PACKAGE__->attr('json');
-
-sub new {
-    my ( $class, %arg ) = @_;
-    my $self = {};
-    bless $self, $class;
-    return $self;
-}
-
-sub build {
-    my ( $self, %arg ) = @_;
-    $self->json( JSON->new() );
-    return sub { $self->process(@_); };
-}
-
-sub process {
-    my ( $self, $renderer, $c, $output ) = @_;
-    my $obj = $c->stash('obj');
-    $c->app->log->debug("in json renderer");
-
-    #routine to get perl data structure that will be converted to json
-    $obj->init();
-    my $conf = $obj->config();
-    $$output = $self->json->objToJson(
-        [ map { $_->to_json } @{ $conf->panels } ] );
-    return 1;
-}
 
 1;    # Magic true value required at end of module
 
@@ -47,7 +24,7 @@ __END__
 
 =head1 NAME
 
-DictyREST::Renderer::TT - [Template toolkit renderer for DictyREST application]
+<MODULE NAME> - [One line description of module's purpose here]
 
 
 =head1 VERSION
