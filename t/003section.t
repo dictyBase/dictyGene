@@ -85,15 +85,15 @@ $tx->content_type_like( qr/json/, 'is a json content for protein sequence' );
 $tx->content_like( qr/layout.+row/, 'has a row layout in protein sequence' );
 
 #request for section info under protein topic
-#$tx = $client->get_ok('/gene/DDB_G0288511/protein/DDB0191090/info');
-#$tx->status_is( 200, 'is a successful response for protein info section' );
-#$tx->content_type_like( qr/json/, 'is a json content for protein info' );
-#$tx->content_like( qr/layout.+row/, 'has a row layout in protein links' );
+$tx = $client->get_ok('/gene/DDB_G0288511/protein/DDB0191090/info');
+$tx->status_is( 200, 'is a successful response for protein info section' );
+$tx->content_type_like( qr/json/, 'is a json content for protein info' );
+$tx->content_like( qr/layout.+row/, 'has a row layout in protein links' );
 
 #request for section sequence under protein topic
-#$tx = $client->get_ok('/gene/DDB_G0288511/protein/DDB0191090/sequence');
-#$tx->status_is( 200, 'is a successful response for protein info sequence' );
-#$tx->content_type_like( qr/json/, 'is a json content for protein sequence' );
-#$tx->content_like( qr/layout.+row/, 'has a row layout in protein sequence' );
+$tx = $client->get_ok('/gene/DDB_G0288511/protein/DDB0191090/sequence');
+$tx->status_is( 200, 'is a successful response for protein info sequence' );
+$tx->content_type_like( qr/json/, 'is a json content for protein sequence' );
+$tx->content_like( qr/layout.+row/, 'has a row layout in protein sequence' );
 
 
