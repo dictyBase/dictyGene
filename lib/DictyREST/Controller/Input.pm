@@ -8,6 +8,7 @@ use version; our $VERSION = qv('1.0.0');
 
 # Other modules:
 use dicty::Feature;
+use Mojo::Path;
 use base qw/Mojolicious::Controller/;
 
 # Module implementation
@@ -83,10 +84,8 @@ sub validate {
         $self->render( template => $app->config->param('genepage.error') );
         return;
     }
-    $self->app->log->debug("ok returning true with $gene_id");
     $self->stash( gene_id  => $gene_id );
-    $self->stash( base_url => $self->req->url->base );
-    $self->app->log->debug($self->req->url->base);
+    $self->stash( base_url => '/gene' );
     return 1;
 }
 
