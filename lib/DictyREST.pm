@@ -11,6 +11,7 @@ use Bio::Chado::Schema;
 use DictyREST::Renderer::TT;
 use DictyREST::Renderer::JSON;
 use DictyREST::Helper;
+use Homology::Chado::DataSource;
 
 __PACKAGE__->attr( 'config' => sub { Config::Simple->new() } );
 __PACKAGE__->attr('template_path');
@@ -64,6 +65,15 @@ sub startup {
     $self->set_renderer();
     $self->helper->app($self);
     $self->set_dbh;
+
+    ## init database connection
+    my $datasource = Homology::Chado::DataSource->instance;
+    $datasource->dsn( $self->config->param('database.dsn') )
+        if !$datasource->has_dsn;
+    $datasource->user( $self->config->param('database.user') )
+        if !$datasource->has_user;
+    $datasource->password( $self->config->param('database.pass') )
+        if !$datasource->has_password;
 
     #$self->log->debug("done with startup");
 }
@@ -120,8 +130,8 @@ sub set_renderer {
     #$self->log->debug(qq/default template path for TT $tpath/);
 
     my $mode = $self->mode();
-    my $compile_dir
-        = $mode eq 'development'
+    my $compile_dir =
+          $mode eq 'development'
         ? $self->home->rel_dir('log')
         : $self->home->rel_dir('log/prod_cache');
 
