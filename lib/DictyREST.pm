@@ -12,6 +12,7 @@ use DictyREST::Renderer::TT;
 use DictyREST::Renderer::JSON;
 use DictyREST::Helper;
 use Homology::Chado::DataSource;
+use namespace::autoclean;
 
 __PACKAGE__->attr( 'config' => sub { Config::Simple->new() } );
 __PACKAGE__->attr('template_path');

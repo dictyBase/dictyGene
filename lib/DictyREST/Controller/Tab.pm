@@ -1,7 +1,6 @@
 package DictyREST::Controller::Tab;
 
 use strict;
-use warnings;
 use base qw/Mojolicious::Controller/;
 use dicty::UI::Tabview::Page::Gene;
 use dicty::Factory::Tabview::Tab;
