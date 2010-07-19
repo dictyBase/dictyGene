@@ -13,7 +13,7 @@ __PACKAGE__->attr('app');
 
 sub is_name {
     my ( $self, $id ) = @_;
-    return 0 if $id =~ /^D[A-Z]+_G\d+$/;
+    return 0 if $id =~ /^[A-Z]+_G\d+$/;
     return 1;
 }
 
