@@ -27,7 +27,7 @@ sub name2id {
     my ( $self, $id ) = @_;
     my $model = $self->app->model;
     my $rs    = $model->resultset('Sequence::Feature')->search(
-        { name => $id },
+        { 'UPPER(name)' => uc $id },
         {   prefetch => 'dbxref',
             cache    => 1
         }
@@ -55,6 +55,7 @@ sub is_dynamic {
 
 sub transcript_id {
     my ( $self, $id ) = @_;
+
     #load dicty::Feature;
     my $gene;
     eval { $gene = dicty::Feature->new( -primary_id => $id ); };
