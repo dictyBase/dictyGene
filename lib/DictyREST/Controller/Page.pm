@@ -5,6 +5,7 @@ use base qw/Mojolicious::Controller/;
 use dicty::UI::Tabview::Page::Gene;
 use dicty::Factory::Tabview::Tab;
 use dicty::Factory::Tabview::Section;
+use Carp::Always;
 
 sub index {
     my ($self) = @_;

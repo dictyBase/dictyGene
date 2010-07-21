@@ -12,7 +12,8 @@ use DictyREST::Renderer::TT;
 use DictyREST::Renderer::JSON;
 use DictyREST::Helper;
 use Homology::Chado::DataSource;
-use namespace::autoclean;
+use Carp::Always;
+#use namespace::autoclean;
 
 __PACKAGE__->attr( 'config' => sub { Config::Simple->new() } );
 __PACKAGE__->attr('template_path');
@@ -76,7 +77,7 @@ sub startup {
     $datasource->password( $self->config->param('database.pass') )
         if !$datasource->has_password;
 
-    #$self->log->debug("done with startup");
+    $self->log->debug("done with startup");
 }
 
 #set up config file usually look under conf folder
