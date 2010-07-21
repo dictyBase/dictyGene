@@ -16,6 +16,7 @@ BEGIN { $ENV{ORACLE_HOME} = '/oracle/10g';
 	$ENV{USER} = 'CGM_DDB';
 	$ENV{PASSWORD} = 'CGM_DDB';
 	$ENV{DBUSER} = 'CGM_DDB';
+	$ENV{MOJO_MODE} = 'production';
 };
 
 my $fcgi = Mojo::Server::FastCGI->new(app_class => 'DictyREST');
