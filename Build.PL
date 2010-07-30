@@ -11,7 +11,8 @@ my $builder = DictyRESTBuilder->new(
     dist_version => '1.2.0',
     requires     => {
         'Mojo'          => '',
-        'Apache2::Mojo' => ''
+        'Apache2::Mojo' => '', 
+        'Homology::Group' => ''
     },
     build_requires => {
     	 'Archive::Extract' => '',
