@@ -4,8 +4,10 @@ use strict;
 use local::lib '/home/ubuntu/dictyBase/Libs/modern-perl-dapper';
 use FindBin;
 use Mojo::Server::PSGI;
+use Plack::Builder;
 use lib "$FindBin::Bin/../../lib";
 use lib "$FindBin::Bin/../lib";
+use lib 'lib';
 use lib '/home/ubuntu/dicty/lib';
 
 BEGIN { $ENV{ORACLE_HOME} = '/oracle/10g';
@@ -20,5 +22,9 @@ BEGIN { $ENV{ORACLE_HOME} = '/oracle/10g';
 
 my $psgi = Mojo::Server::PSGI->new(app_class => 'DictyREST');
 my $app = sub {$psgi->run(@_)};
-$app;
+
+builder {
+	enable 'Debug',  panels => [qw(Memory Timer Environment)];
+	$app;
+}
 

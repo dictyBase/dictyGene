@@ -12,7 +12,6 @@ use DictyREST::Renderer::TT;
 use DictyREST::Renderer::JSON;
 use DictyREST::Helper;
 use Homology::Chado::DataSource;
-use Carp::Always;
 #use namespace::autoclean;
 
 __PACKAGE__->attr( 'config' => sub { Config::Simple->new() } );
