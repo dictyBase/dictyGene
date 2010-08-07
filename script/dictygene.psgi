@@ -24,7 +24,11 @@ my $psgi = Mojo::Server::PSGI->new(app_class => 'DictyREST');
 my $app = sub {$psgi->run(@_)};
 
 builder {
-	enable 'Debug',  panels => [qw(Memory Timer Environment)];
+	enable 'Debug';
+	enable 'Debug::DBITrace',  level => 2;
+	enable 'Debug::Parameters';
+	enable 'Debug::ModuleVersions';
+	enable 'Debug::PerlConfig';
 	$app;
 }
 
