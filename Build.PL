@@ -10,14 +10,15 @@ my $builder = DictyRESTBuilder->new(
     dist_author  => 'Siddhartha Basu <siddhartha-basu@northwestern.edu>',
     dist_version => '1.2.0',
     requires     => {
-        'Mojo'          => '',
-        'Apache2::Mojo' => '', 
-        'Homology::Group' => ''
+        'Mojo'             => '0.999926',
+        'Plack'            => '0.9941',
+        'YAML::XS'         => '0.33',
+        'Module::Versions' => '0.02',
+        'FCGI::Engine'     => '0.16',
+        'Homology::Group'  => ''
     },
-    build_requires => {
-    	 'Archive::Extract' => '',
-		},
-    add_to_cleanup => ['DictyREST-*'],
+    build_requires => { ' Archive::Extract ' => '', },
+    add_to_cleanup => [' DictyREST- *'],
     create_readme  => 1,
 );
 

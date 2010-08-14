@@ -12,7 +12,7 @@ use DictyREST::Renderer::TT;
 use DictyREST::Renderer::JSON;
 use DictyREST::Helper;
 use Homology::Chado::DataSource;
-#use namespace::autoclean;
+use CHI;
 
 __PACKAGE__->attr( 'config' => sub { Config::Simple->new() } );
 __PACKAGE__->attr('template_path');
@@ -20,16 +20,42 @@ __PACKAGE__->attr( 'has_config' => 0 );
 __PACKAGE__->attr( 'helper' => sub { DictyREST::Helper->new() } );
 __PACKAGE__->attr('prefix');
 __PACKAGE__->attr('model');
+__PACKAGE__->attr('cache');
 
 # This will run once at startup
 sub startup {
     my ($self) = @_;
 
     #default log level
-    $self->log->level('debug');
     my $router = $self->routes();
 
     #$self->log->debug("starting up");
+    #config file setup
+    $self->set_config();
+
+    if ( $self->config->param('cache.driver') ) {
+    	$self->log->debug('adding cache plugin');
+    	$self->log->debug('cache expires in '.$self->config->param('cache.expires_in'));
+
+        $self->cache(
+            CHI->new(
+                driver     => $self->config->param('cache.driver'),
+                root_dir   => $self->config->param('cache.root'),
+                depth      => $self->config->param('cache.depth'),
+                namespace  => $self->config->param('cache.namespace'),
+                expires_in => $self->config->param('cache.expires_in')
+            )
+        );
+
+        #plugins
+        $self->plugin(
+            'actioncache',
+            {   debug         => 1,
+                cache_object  => $self->cache,
+                cache_actions => [qw/index index_html index_json tab section sub_section/]
+            }
+        );
+    }
 
     #routing setup
     my $base = $router->namespace();
@@ -58,9 +84,6 @@ sub startup {
         action     => 'sub_section',
         format     => 'json'
     );
-
-    #config file setup
-    $self->set_config();
 
     #set up various renderer
     $self->set_renderer();
@@ -131,8 +154,8 @@ sub set_renderer {
     #$self->log->debug(qq/default template path for TT $tpath/);
 
     my $mode = $self->mode();
-    my $compile_dir =
-          $mode eq 'development'
+    my $compile_dir
+        = $mode eq 'development'
         ? $self->home->rel_dir('log')
         : $self->home->rel_dir('log/prod_cache');
 

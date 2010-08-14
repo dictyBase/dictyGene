@@ -7,8 +7,7 @@ use Mojo::Server::PSGI;
 use Plack::Builder;
 use lib "$FindBin::Bin/../../lib";
 use lib "$FindBin::Bin/../lib";
-use lib 'lib';
-use lib '/home/ubuntu/dicty/lib';
+use lib ('lib','/home/ubuntu/dicty/lib');
 
 BEGIN { $ENV{ORACLE_HOME} = '/oracle/10g';
 	$ENV{DATABASE} = 'DICTYBASE';
@@ -25,7 +24,6 @@ my $app = sub {$psgi->run(@_)};
 
 builder {
 	enable 'Debug';
-	enable 'Debug::DBITrace',  level => 2;
 	enable 'Debug::Parameters';
 	enable 'Debug::ModuleVersions';
 	enable 'Debug::PerlConfig';

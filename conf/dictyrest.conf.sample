@@ -25,4 +25,12 @@ user = CGM_CHADO
 pass = CGM_CHADO
 opt = LongTruncOk
 
+[cache]
+driver = File
+root   = /home/ubuntu/dictyBase/Apps/dictygene/cache
+depth = 8
+namespace = dictygene
+expires_in = "7 days"
+
+
 
