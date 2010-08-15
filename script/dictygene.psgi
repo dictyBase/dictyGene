@@ -23,10 +23,10 @@ my $psgi = Mojo::Server::PSGI->new(app_class => 'DictyREST');
 my $app = sub {$psgi->run(@_)};
 
 builder {
-	enable 'Debug';
-	enable 'Debug::Parameters';
-	enable 'Debug::ModuleVersions';
-	enable 'Debug::PerlConfig';
+	#enable 'Debug';
+	#enable 'Debug::Parameters';
+	#enable 'Debug::ModuleVersions';
+	#enable 'Debug::PerlConfig';
 	$app;
 }
 
