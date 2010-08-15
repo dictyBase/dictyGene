@@ -25,6 +25,7 @@ $gt->content_like( qr/Gene page for sadA/i,
 $gt->content_like( qr/Supported by NIH/i,
     'is the common footer for every gene page' );
 
+
 #canonical url with gene id
 $gt = $mt->get_ok('/gene/DDB_G0288511');
 $gt->status_is( 200, 'is a successful response for DDB_G0288511' );

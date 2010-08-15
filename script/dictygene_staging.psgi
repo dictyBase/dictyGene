@@ -3,10 +3,10 @@
 use strict;
 use local::lib '/home/ubuntu/dictyBase/Libs/modern-perl-dapper';
 use FindBin;
-use Mojo::Server::FastCGI;
-
-use lib "$FindBin::Bin/../lib";
+use Mojo::Server::PSGI;
 use lib "$FindBin::Bin/../../lib";
+use lib "$FindBin::Bin/../lib";
+use lib 'lib';
 use lib '/home/ubuntu/dicty/lib';
 
 BEGIN { $ENV{ORACLE_HOME} = '/usr/local/instantclient_10_2';
@@ -18,9 +18,10 @@ BEGIN { $ENV{ORACLE_HOME} = '/usr/local/instantclient_10_2';
 	$ENV{DBUSER} = 'CGM_DDB';
 	$ENV{LD_LIBRARY_PATH} = '/usr/local/instantclient_10_2';
 	$ENV{TNS_ADMIN} = '/usr/local/instantclient_10_2';
-	$ENV{MOJO_MODE} = 'production';
+	$ENV{MOJO_MODE} = $ENV{PLACK_ENV};
 };
 
-my $fcgi = Mojo::Server::FastCGI->new(app_class => 'DictyREST');
-$fcgi->run;
+my $psgi = Mojo::Server::PSGI->new(app_class => 'DictyREST');
+my $app = sub {$psgi->run(@_)};
+$app;
 
