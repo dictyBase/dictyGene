@@ -18,7 +18,7 @@ BEGIN { $ENV{ORACLE_HOME} = '/usr/local/instantclient_10_2';
 	$ENV{DBUSER} = 'CGM_DDB';
 	$ENV{LD_LIBRARY_PATH} = '/usr/local/instantclient_10_2';
 	$ENV{TNS_ADMIN} = '/usr/local/instantclient_10_2';
-	$ENV{MOJO_MODE} = $ENV{PLACK_ENV};
+	$ENV{MOJO_MODE} = 'production';
 };
 
 my $psgi = Mojo::Server::PSGI->new(app_class => 'DictyREST');
