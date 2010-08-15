@@ -4,7 +4,6 @@ use strict;
 use local::lib '/home/ubuntu/dictyBase/Libs/modern-perl-dapper';
 use FindBin;
 use Mojo::Server::PSGI;
-use Plack::Builder;
 use lib "$FindBin::Bin/../../lib";
 use lib "$FindBin::Bin/../lib";
 use lib 'lib';

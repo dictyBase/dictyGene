@@ -6,7 +6,7 @@ use FCGI::Engine::Manager;
 use File::Spec::Functions;
 
 my $manager = FCGI::Engine::Manager->new(
-    conf => catfile( $Bin, '../conf', 'fcgi_conf.yaml' ) );
+    conf => catfile( $Bin, updir, 'conf', 'fcgi_conf.yaml' ) );
 
 my ( $command, $server ) = @ARGV;
 die "no command given\n" if !$command;
