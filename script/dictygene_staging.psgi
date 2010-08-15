@@ -7,7 +7,7 @@ use Mojo::Server::PSGI;
 use lib "$FindBin::Bin/../../lib";
 use lib "$FindBin::Bin/../lib";
 use lib 'lib';
-use lib '/home/ubuntu/dicty/lib';
+use lib '/usr/local/dicty/lib';
 
 BEGIN { $ENV{ORACLE_HOME} = '/usr/local/instantclient_10_2';
 	$ENV{DATABASE} = 'DICTYBASE';
