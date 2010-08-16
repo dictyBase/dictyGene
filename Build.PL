@@ -17,7 +17,6 @@ my $builder = DictyRESTBuilder->new(
         'FCGI::Engine'     => '0.16',
         'Homology::Group'  => ''
     },
-    build_requires => { ' Archive::Extract ' => '', },
     add_to_cleanup => [' DictyREST- *'],
     create_readme  => 1,
 );

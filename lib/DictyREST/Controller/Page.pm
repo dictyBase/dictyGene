@@ -8,7 +8,9 @@ use dicty::Factory::Tabview::Section;
 
 sub index {
     my ($self) = @_;
-    my $method = 'index_' . $self->stash('format');
+    #partial hack have to figure out something better later on
+    my $format = $self->stash('format') || 'html';
+    my $method = 'index_' . $format;
     $self->$method();
 }
 

@@ -68,12 +68,12 @@ sub startup {
         action     => 'check_for_redirect'
     );
     $bridge->route('/:id')
-        ->to( controller => 'page', action => 'index', format => 'html' );
+        ->to( controller => 'page', action => 'index');
 
     $bridge->route('/:id/:tab')->via('get')->to(
         controller => 'page',
         action     => 'tab',
-        foramt     => 'html'
+        format     => 'html'
     );
 
     $bridge->route('/:id/:tab/:section')->via('get')
