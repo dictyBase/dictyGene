@@ -5,5 +5,16 @@
 !dictyrest.conf.sample
 
 #exclude various folder
-log/
-cache/
+log
+cache
+
+#Perl's build specific stuff
+Build
+_blib
+_build
+MANIFEST
+MYMETA*
+META
+
+#exclude Build.PL
+!Build.PL
