@@ -11,6 +11,7 @@ cache
 #Perl's build specific stuff
 Build
 _blib
+blib
 _build
 MANIFEST
 MYMETA*
