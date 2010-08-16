@@ -1,0 +1,9 @@
+#Ignore conf files
+*.conf
+
+#however exclude the sample conf
+!dictyrest.conf.sample
+
+#exclude various folder
+log/
+cache/
