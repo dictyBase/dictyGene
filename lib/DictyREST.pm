@@ -166,9 +166,9 @@ sub set_renderer {
         $compile_dir = $self->home->rel_dir('webtmp');
     }
     $self->log->debug(qq/default compile path for TT $compile_dir/);
-    if ( !-e $compile_dir ) {
-        $self->log->error("folder for template compilation is absent");
-    }
+    #if ( !-e $compile_dir ) {
+    #    $self->log->error("folder for template compilation is absent");
+    #}
     
     my $tt = DictyREST::Renderer::TT->new(
         path => $self->template_path,
