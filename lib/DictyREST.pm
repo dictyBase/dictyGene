@@ -14,6 +14,7 @@ use DictyREST::Renderer::JSON_Generic;
 use DictyREST::Helper;
 use Homology::Chado::DataSource;
 use CHI;
+use aliased 'Modware::DataSource::Chado';
 
 __PACKAGE__->attr( 'config' => sub { Config::Simple->new() } );
 __PACKAGE__->attr('template_path');
@@ -35,8 +36,9 @@ sub startup {
     $self->set_config();
 
     if ( $self->config->param('cache.driver') ) {
-    	$self->log->debug('adding cache plugin');
-    	$self->log->debug('cache expires in '.$self->config->param('cache.expires_in'));
+        $self->log->debug('adding cache plugin');
+        $self->log->debug(
+            'cache expires in ' . $self->config->param('cache.expires_in') );
 
         $self->cache(
             CHI->new(
@@ -51,9 +53,10 @@ sub startup {
         #plugins
         $self->plugin(
             'actioncache',
-            {   debug         => 1,
-                cache_object  => $self->cache,
-                cache_actions => [qw/index index_html index_json tab section sub_section/]
+            {   debug        => 1,
+                cache_object => $self->cache,
+                cache_actions =>
+                    [qw/index index_html index_json tab section sub_section/]
             }
         );
     }
@@ -68,8 +71,7 @@ sub startup {
         controller => 'input',
         action     => 'check_for_redirect'
     );
-    $bridge->route('/:id')
-        ->to( controller => 'page', action => 'index');
+    $bridge->route('/:id')->to( controller => 'page', action => 'index' );
 
     $bridge->route('/:id/:tab')->via('get')->to(
         controller => 'page',
@@ -85,10 +87,10 @@ sub startup {
         action     => 'sub_section',
         format     => 'json'
     );
-    
+
     #organisms
     $router->route('/organism')
-        ->to( controller => 'organism', action => 'index', format => 'json');
+        ->to( controller => 'organism', action => 'index', format => 'json' );
 
     #set up various renderer
     $self->set_renderer();
@@ -131,9 +133,9 @@ sub set_config {
     #my $file = catfile()
     #closedir $conf;
 
-    my $file = catfile($folder, $app_name.$suffix);
+    my $file = catfile( $folder, $app_name . $suffix );
     $self->log->debug(qq/got config file $file/);
-    $self->config->read( $file );
+    $self->config->read($file);
     $self->has_config(1);
 
     my $prefix_has = {
@@ -166,10 +168,11 @@ sub set_renderer {
         $compile_dir = $self->home->rel_dir('webtmp');
     }
     $self->log->debug(qq/default compile path for TT $compile_dir/);
+
     #if ( !-e $compile_dir ) {
     #    $self->log->error("folder for template compilation is absent");
     #}
-    
+
     my $tt = DictyREST::Renderer::TT->new(
         path => $self->template_path,
 
@@ -179,12 +182,12 @@ sub set_renderer {
             POST_PROCESS => $self->config->param('genepage.footer') || '',
         },
     );
-    my $json = DictyREST::Renderer::JSON->new();
+    my $json         = DictyREST::Renderer::JSON->new();
     my $json_generic = DictyREST::Renderer::JSON_Generic->new();
-    
+
     $self->renderer->add_handler(
-        tt   => $tt->build(),
-        json => $json->build(),
+        tt           => $tt->build(),
+        json         => $json->build(),
         json_generic => $json_generic->build()
     );
     $self->renderer->default_handler('tt');
@@ -200,6 +203,37 @@ sub set_dbh {
         { $opt => 1 }
     );
     $self->model($schema);
+    Chado->connect(
+        user     => $self->config->param('database.user'),
+        password => $self->config->param('database.pass'),
+        dsn      => $self->config->param('database.dsn'),
+        attr     => { $opt => 1 }
+    );
+
+    my $source     = Chado->handler->source('Cv::Cvtermsynonym');
+    my $class_name = 'Bio::Chado::Schema::' . $source->source_name;
+    $source->remove_column('synonym');
+    $source->add_column(
+        'synonym_' => {
+            data_type   => 'varchar',
+            is_nullable => 0,
+            size        => 1024
+        }
+    );
+    $class_name->add_column(
+        'synonym_' => {
+            data_type   => 'varchar',
+            is_nullable => 0,
+            size        => 1024
+        }
+    );
+    $class_name->register_column(
+        'synonym_' => {
+            data_type   => 'varchar',
+            is_nullable => 0,
+            size        => 1024
+        }
+    );
 }
 
 1;
