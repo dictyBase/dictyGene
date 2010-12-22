@@ -9,9 +9,9 @@ use Data::Dumper;
 use Test::Mojo;
 use lib "$FindBin::Bin/lib";
 
-#use_ok('DictyREST');
+use_ok('DictyGene');
 
-my $mt = Test::Mojo->new( app => 'DictyREST' );
+my $mt = Test::Mojo->new( app => 'DictyGene' );
 #$mt->get_ok('/gene')->status_is(404)
 #    ->content_like( qr/File not found/i, 'is a generic error response' );
 
@@ -46,9 +46,8 @@ $gt->content_like( qr/Supported by NIH/i,
     'is the common footer for every gene page' );
 
 #canonical url with gene name and json format
-#$gt = $mt->get_ok('/gene/sadA.json');
-#$gt->status_is( 200, 'is a successful response for sadA' );
-#$gt->content_type_like( qr/json/, 'is a json response for sadA' );
-#$gt->content_like( qr/tabview/, 'default layout for json response of gene' );
+$gt = $mt->get_ok('/gene/sadA.json');
+$gt->status_is( 200, 'is a successful response for sadA' );
+$gt->content_type_like( qr/json/, 'is a json response for sadA' );
+$gt->content_like( qr/tabview/, 'default layout for json response of gene' );
 
-exit;
