@@ -51,8 +51,12 @@ sub register {
             my $gene_id = $id;
             if ( $self->is_name($id) ) {
                 $gene_id = $self->name2id($id);
-                return 0 if !$gene_id;
+                if (!$gene_id) {
+                	$app->log->debug("unable to convert $id to gene_id");
+                	return 0;
+                }
             }
+            $app->log->debug("converted $id to $gene_id");
             return $gene_id;
         }
     );
