@@ -1,0 +1,41 @@
+% my $pager      = stash('pager');
+% my $before    = $pager->current_page - 1;
+% my $after     = $pager->current_page + 1;
+% my $start_range = $before > 4 ? $before - 3 : 1;
+% my $end_range = $after > ($pager->last_page - 4 ) ? $pager->last_page : $after + 3;
+
+<div class="PagesFlickr">
+    <div class="Paginator">
+		    % if ($pager->first_page == $pager->current_page) { 
+		    	<span class="AtStart">&lt;&lt;First</span>
+		    	<span class="AtStart">&lt; Prev</span>
+		    % }
+	      % else {
+           <a class="Prev" href="<%= $paging_path %>/<%= $pager->first_page %>">&lt;&lt; First</a>
+           <a class="Prev" href="<%= $paging_path %>/<%= $before %>">&lt; Prev</a>
+	      % }    
+
+       	% for my $i ($start_range .. $before) { 
+         	<a href="<%= $paging_path %>/<%= $i %>"><%= $i %></a>
+		  	% }
+
+        <span class="this-page">
+        			<%= $pager->current_page %>
+        </span>
+
+       	% for my $i($after .. $end_range) {
+          	<a href="<%= $paging_path %>/<%= $i %>"><%= $i %></a>
+       	% }
+
+				% if ($pager->last_page == $pager->current_page) { 
+		    	<span class="AtEnd">&gt;Next</span>
+		    	<span class="AtEnd">&gt;&gt;Last</span>
+		    % }
+	      % else {
+           <a class="Next" href="<%= $paging_path %>/<%= $after %>">&gt;Next</a>
+           <a class="Next" href="<%= $paging_path %>/<%= $pager->last_page %>">&gt;&gt;Last</a>
+	      % }
+	      <div class="results"></div>
+	</div>
+</div>
+

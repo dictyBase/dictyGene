@@ -1,0 +1,24 @@
+% layout 'default', title => 'Deleted record' ;
+
+<div class="wrapper threecol-wide">
+    <div id="subnav">
+        <div class="inner_container"></div>
+    </div>
+    <div class="wrapper-left-center">
+      <div class="wrapper-columns">
+        <div class="column-center">
+          <div id="column-center-content">
+						<div class="info"> OOoops!!!! <%= $id %></b> has been deleted from dictyBase.
+						</div>						
+          </div>
+				</div>
+				<div class="column-left">
+				  <div id="column-left-content"></div>
+				</div>
+				<div class="column-right">
+		  </div>
+		</div>
+</div>
+
+
+

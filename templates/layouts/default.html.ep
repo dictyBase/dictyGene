@@ -1,0 +1,45 @@
+% my $path = stash('species') || 'default';
+<!doctype html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+				<link type="text/css" rel="stylesheet" media="screen" 
+					href="<%= stylesheet_path '/javascripts/yui/build/fonts/fonts-min.css' %>" />
+
+				<link type="text/css" rel="stylesheet" media="screen" 
+					href="<%= stylesheet_path '/javascripts/yui/build/assets/skins/sam/skin.css' %>" />
+
+				% for my $yui_css(qw/container menu button )  {
+					% my $css_path = "/javascripts/yui/build/$yui_css/assets/skins/sam/$yui_css"; 
+
+							<link type="text/css" rel="stylesheet" media="screen" 
+        			href="<%= stylesheet_path $css_path %>" />
+				% }
+
+        % for my $css(qw/header body footer/) {
+        	 <%= stylesheet_link_tag $css %>
+        % }
+
+        % for my $skin(('header-skin','body-skin','footer-skin')) {
+        	<%= stylesheet_link_tag "$path/$skin" %>
+        % }
+
+        % push my @yahoo_js, qw/yuiloader yahoo yahoo-dom-event container/;
+        % push @yahoo_js,  qw/menu animation element connection json/;
+
+        % for my $js(@yahoo_js) {
+        	% my $js_path = "yui/build/$js/$js"."-min";
+        	<%= javascript_include_tag $js_path %>
+        % }
+
+        <%= javascript_include_tag 'menu' %>
+
+        <title><%= stash 'title' %></title>
+
+    </head>
+    <body class="yui-skin-sam">
+        <%= $self->render_partial(template => $path.'/toolbar') %>
+        <%= $self->render_inner %>
+        <%= $self->render_partial(template => 'footer') %>
+    </body>
+</html>

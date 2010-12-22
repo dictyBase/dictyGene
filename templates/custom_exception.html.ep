@@ -1,0 +1,34 @@
+% layout 'default', title => 'Error page' ;
+
+<div class="wrapper threecol-wide">
+    <div id="subnav">
+        <div class="inner_container"></div>
+    </div>
+    <div class="wrapper-left-center">
+      <div class="wrapper-columns">
+        <div class="column-center">
+          <div id="column-center-content">
+          	<div class="error">
+							<p> There was a problem serving the page </p>
+              <p> Now,  if you are wondering what to do now ?. Well ..... </p>
+              <ul>
+                <li> Try refreshing the page, the problem might be temporary </li>
+                <li> Check the url is correct </li>
+                <li> We have been notified about the problem and will do our best to make
+                sure it doesn't happen again </li>
+                <li> Please come back after a while,  the problem might be solved by that
+                time </li>
+                <li> And of course please feel free to e-mail us at dictybase@northwestern.edu </li>
+							</ul>
+						</div>						
+          </div>
+				</div>
+				<div class="column-left">
+				  <div id="column-left-content"></div>
+				</div>
+				<div class="column-right">
+		  </div>
+		</div>
+</div>
+
+

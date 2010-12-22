@@ -1,0 +1,29 @@
+% layout 'default', title => 'Record not found' ;
+
+<div class="wrapper threecol-wide">
+    <div id="subnav">
+        <div class="inner_container"></div>
+    </div>
+    <div class="wrapper-left-center">
+      <div class="wrapper-columns">
+        <div class="column-center">
+          <div id="column-center-content">
+						<div class="info"> <%= $id %></b> not found in the database
+							<ul>
+								<li> This probably is an invalid id. Try with a different one. </li>
+								<li> You probably coming here from an out of date link. </li>
+								<li> If problem persist,  email us at dictybase@northwestern.edu </li>
+							</ul>
+						</div>						
+          </div>
+				</div>
+				<div class="column-left">
+				  <div id="column-left-content"></div>
+				</div>
+				<div class="column-right">
+		  </div>
+		</div>
+</div>
+
+
+

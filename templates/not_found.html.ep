@@ -1,0 +1,33 @@
+% layout 'default', title => 'Page not found' ;
+
+<div class="wrapper threecol-wide">
+    <div id="subnav">
+        <div class="inner_container"></div>
+    </div>
+    <div class="wrapper-left-center">
+      <div class="wrapper-columns">
+        <div class="column-center">
+          <div id="column-center-content">
+          	<div class="warning">
+							<p> Page <%= url_for %> not found </p>
+              <p> What you can try: </p>
+              <ul>
+                <li> Retype the address </li>
+                <li> Go back to the previous page </li>
+                <li> Search for information using our search button on the top right corner </li>
+                <li> Go to <a href="http://dictybase.org">dictyBase</a> and look for 
+                      information </li>
+                <li> E-mail us at dictybase@northwestern.edu to report the error </li>
+							</ul>
+						</div>						
+          </div>
+				</div>
+				<div class="column-left">
+				  <div id="column-left-content"></div>
+				</div>
+				<div class="column-right">
+		  </div>
+		</div>
+</div>
+
+
