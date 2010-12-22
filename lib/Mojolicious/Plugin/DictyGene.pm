@@ -23,10 +23,10 @@ sub register {
         if ( defined $app->config->{multigenome}->{prefix_list} ) {
             my @prefix_list = split /:/,
                 $app->config->{multigenome}->{prefix_list};
-            my $prefix_map{ map { $_ => $app->config->{multigenome}->{$_} }
+            my $prefix_map = { map { $_ => $app->config->{multigenome}->{$_} }
                     @prefix_list };
+            $self->prefix_map( sub {$prefix_map} );
         }
-        $self->prefix_map( sub {$prefix_map} );
     }
 
     $app->helper(
@@ -75,7 +75,7 @@ sub register {
             my $model = $app->modware->handler;
             my $rs
                 = $model->resultset('Sequence::Feature')
-                ->search( { 'dbxref.accession' => $gene_id },
+                ->search( { 'dbxref.accession' => $id },
                 { join => 'dbxref' } )->search_related(
                 'feature_relationship_objects',
                 { 'type.name' => 'part_of' },
@@ -103,8 +103,7 @@ sub register {
             if ( $rs->count == 1 ) {
                 return $rs->first->dbxref->accession;
             }
-            my @values
-                = map { $_->get_column('id') }
+            my @values = map { $_->get_column('id') }
                 grep { $_->get_column('source') eq 'dictyBase Curator' }
                 $rs->all;
             return $values[0];

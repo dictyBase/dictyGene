@@ -19,10 +19,6 @@ my $builder = DictyRESTBuilder->new(
         'dicty::Tests::Data'                   => '',
         'dicty::Feature'                       => '',
         'dicty::UI::Tabview::Page::Gene'       => '',
-        'Mojolicious::Plugin::Modware::Oracle' => '',
-        'Mojolicious::Plugin::AssetTagHelpers' => '',
-        'Mojolicious::Plugin::DictyGene'       => '',
-        'Mojolicious::Plugin::YmlConfig'       => ''
     },
     add_to_cleanup => [' DictyREST- *'],
     create_readme  => 1,

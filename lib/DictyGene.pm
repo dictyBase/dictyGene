@@ -15,6 +15,7 @@ sub startup {
     if ( defined $self->config->{cache} ) {
         ## -- add the new cache plugin
     }
+    $self->plugin('dicty_gene');
 
     my $router = $self->routes();
 
