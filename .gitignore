@@ -1,8 +1,9 @@
-#Ignore conf files
-*.conf
+#Ignore yaml files
+*.yaml
 
-#however exclude the sample conf
-!dictyrest.conf.sample
+#however exclude the following conf
+!sample.yaml
+!fcgi_conf.yaml
 
 #exclude various folder
 log
