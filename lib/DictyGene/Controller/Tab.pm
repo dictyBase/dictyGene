@@ -1,13 +1,14 @@
 package DictyGene::Controller::Tab;
 
 use strict;
-use base qw/Mojolicious::Controller/;
+use base qw/DictyGene::Controller::Input/;
 use dicty::UI::Tabview::Page::Gene;
 use dicty::Factory::Tabview::Tab;
 use dicty::Factory::Tabview::Section;
 
 sub section {
     my ($self) = @_;
+    return if !$self->check_input;
     my $method = 'section_' . $self->stash('format');
     $self->$method();
 }
@@ -43,7 +44,7 @@ sub section_json {
     my $app     = $self->app;
 
     my $factory;
-    if ( $app->helper->is_ddb($section) ) {
+    if ( $self->is_ddb($section) ) {
         $factory = dicty::Factory::Tabview::Tab->new(
             -tab        => $tab,
             -primary_id => $section,
@@ -69,6 +70,7 @@ sub section_json {
 
 sub sub_section {
     my ($self) = @_;
+    return if !$self->check_input;
 
     my $factory = dicty::Factory::Tabview::Section->new(
         -primary_id => $self->stash('subid'),

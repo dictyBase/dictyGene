@@ -20,14 +20,12 @@ sub startup {
     my $router = $self->routes();
 
     #routing setup
-    my $bridge
-        = $router->bridge('/gene')->to('controller-input#check_for_redirect');
-    $bridge->route('/:id')->via('get')->to('controller-page#index');
-    $bridge->route('/:id/:tab')->via('get')
+    my $gene = $router->waypoint('/gene/:id')->via('get')->to('controller-page#index');
+    my $tab = $gene->waypoint('/:tab')->via('get')
         ->to( 'controller-page#tab', format => 'html' );
-    $bridge->route('/:id/:tab/:section')->via('get')
+    $tab->route('/:section')->via('get')
         ->to( 'controller-tab#section', format => 'html' );
-    $bridge->route('/:id/:tab/:subid/:section')->via('get')
+    $tab->route('/:subid/:section')->via('get')
         ->to( 'controller-tab#sub_section', format => 'json' );
 
     ## init database connection

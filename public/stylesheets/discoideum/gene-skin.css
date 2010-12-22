@@ -22,7 +22,7 @@
 .yui-skin-sam .yui-navset .yui-nav .selected a,
 .yui-skin-sam .yui-navset .yui-nav .selected a:focus, /* no focus effect for selected */
 .yui-skin-sam .yui-navset .yui-nav .selected a:hover { /* no hover effect for selected */
-    background      :#4C5E81 url(/static/genomerest/images/purpureum/sprite.gif) repeat-x scroll 0 -454px; 
+    background      :#4C5E81 url(../../images/sprite.gif) repeat-x scroll 0 -454px; 
 }
 /* not-active tabs settings */
 .yui-skin-sam .yui-navset .content_tab .yui-nav a,

@@ -12,11 +12,9 @@
 				<link type="text/css" rel="stylesheet" media="screen" 
 					href="<%= stylesheet_path '/javascripts/yui/plugins/accordion/assets/accordion.css' %>" />
 
-				% for my $yui_css(qw/container menu button )  {
-					% my $css_path = "/javascripts/yui/build/$yui_css/assets/skins/sam/$yui_css"; 
-
-							<link type="text/css" rel="stylesheet" media="screen" 
-        			href="<%= stylesheet_path $css_path %>" />
+				% for my $yui_css(qw/container menu button/ )  {
+					% my $css_path =  stylesheet_path("/javascripts/yui/build/$yui_css/assets/skins/sam/$yui_css"); 
+					<link type="text/css" rel="stylesheet" media="screen" href="<%= $css_path %>" />
 				% }
 
         % for my $css(qw/header body footer gene/) {
@@ -27,9 +25,11 @@
         	<%= stylesheet_link_tag "$path/$skin" %>
         % }
 
-        % push my @yahoo_js, qw/yuiloader yahoo yahoo-dom-event container/;
+        <%= javascript_include_tag 'yui/build/yahoo-dom-event/yahoo-dom-event.js' %>
+
+        % push my @yahoo_js, qw/yuiloader yahoo container/;
         % push @yahoo_js,  qw/menu animation element connection json tabview/;
-        % push @yahoo_js,  qw/treeview selector cookie datasource datatable/;
+        % push @yahoo_js,  qw/treeview selector cookie datasource datatable button paginator/;
 
         % for my $js(@yahoo_js) {
         	% my $js_path = "yui/build/$js/$js"."-min";
@@ -37,15 +37,15 @@
         % }
 
         % for my $plugin_js(qw/bubbling accordion dispatcher tooltips/) {
-        	my $js_path = "yui/plugins/$plugin_js/$plugin_js"."-min";
+        	% my $js_path = "yui/plugins/$plugin_js/$plugin_js"."-min";
         	<%= javascript_include_tag $js_path %>
         % }
 
-        % for my $dicty_js(qw/util formatter dispatcher panel item menu language-en nopcart) {
+        % for my $dicty_js(qw/util formatter dispatcher panel item menu language-en nopcart/) {
         	<%= javascript_include_tag $dicty_js %>
         % }
 
-        <%= include bootstrap_js %>
+        <%= include 'bootstrap_js' %>
 
 				<title><%= stash 'title' %></title>
 

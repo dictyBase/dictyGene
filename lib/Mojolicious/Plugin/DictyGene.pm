@@ -3,6 +3,7 @@ package Mojolicious::Plugin::DictyGene;
 use strict;
 
 # Other modules:
+use Data::Dumper;
 use base qw/Mojolicious::Plugin/;
 
 # Module implementation
@@ -25,14 +26,14 @@ sub register {
                 $app->config->{multigenome}->{prefix_list};
             my $prefix_map = { map { $_ => $app->config->{multigenome}->{$_} }
                     @prefix_list };
-            $self->prefix_map( sub {$prefix_map} );
+            $self->prefix_map( sub { return $prefix_map } );
         }
     }
 
     $app->helper(
         has_prefix => sub {
             my ( $c, $prefix ) = @_;
-            my $prefix_map = $self->prefix_map;
+            my $prefix_map = $self->prefix_map->();
             return $prefix_map->{$prefix} if defined $prefix_map->{$prefix};
         }
     );
@@ -40,7 +41,7 @@ sub register {
     $app->helper(
         prefix2species => sub {
             my ( $c, $prefix ) = @_;
-            my $prefix_map = $self->prefix_map;
+            my $prefix_map = $self->prefix_map->();
             return $prefix_map->{$prefix} if defined $prefix_map->{$prefix};
         }
     );
@@ -48,12 +49,13 @@ sub register {
     $app->helper(
         process_id => sub {
             my ( $c, $id ) = @_;
+            $app->log->debug("got the id $id");
             my $gene_id = $id;
             if ( $self->is_name($id) ) {
                 $gene_id = $self->name2id($id);
-                if (!$gene_id) {
-                	$app->log->debug("unable to convert $id to gene_id");
-                	return 0;
+                if ( !$gene_id ) {
+                    $app->log->debug("unable to convert $id to gene_id");
+                    return 0;
                 }
             }
             $app->log->debug("converted $id to $gene_id");
@@ -111,6 +113,14 @@ sub register {
                 grep { $_->get_column('source') eq 'dictyBase Curator' }
                 $rs->all;
             return $values[0];
+        }
+    );
+
+    $app->helper(
+        is_ddb => sub {
+            my ( $c, $id ) = @_;
+            return 1 if $id =~ /^[A-Z]{3}\d+$/;
+            return 0;
         }
     );
 }

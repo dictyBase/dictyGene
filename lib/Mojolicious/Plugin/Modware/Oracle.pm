@@ -68,6 +68,8 @@ sub register {
     $fclass_name->add_column('is_deleted');
     $fclass_name->register_column('is_deleted');
 
+    $instance->handler->source('Organism::Organism')->remove_column('comment');
+
     if ( !$app->can('modware') ) {
         ref($app)->attr( 'modware' => sub {$instance} );
     }

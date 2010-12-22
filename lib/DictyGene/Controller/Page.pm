@@ -1,13 +1,14 @@
 package DictyGene::Controller::Page;
 
 use strict;
-use base qw/Mojolicious::Controller/;
+use base qw/DictyGene::Controller::Input/;
 use dicty::UI::Tabview::Page::Gene;
 use dicty::Factory::Tabview::Tab;
 use dicty::Factory::Tabview::Section;
 
 sub index {
     my ($self) = @_;
+    return if !$self->check_input;
 
     #partial hack have to figure out something better later on
     my $format = $self->stash('format') || 'html';
@@ -50,6 +51,7 @@ sub index_json {
 
 sub tab {
     my ($self) = @_;
+    return if !$self->check_input;
     my $method = 'tab_' . $self->stash('format');
     $self->$method();
 }

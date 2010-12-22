@@ -1,18 +1,16 @@
 package DictyGene::Controller::Input;
 
 use strict;
-use Carp;
-
 # Other modules:
 use dicty::Feature;
 use base qw/Mojolicious::Controller/;
 
 # Module implementation
 #
-sub check_for_redirect {
+sub check_input {
     my ($self) = @_;
-    my $id = $self->stash('id');
-    if ( $id =~ /^([A-Z]+_G)\d+$/ )
+    my $given_id = $self->stash('id');
+    if ( $given_id =~ /^([A-Z]+_G)\d+$/)
     {    #it is a gene id,  now check which species it belong
         if ( $self->has_prefix($1) ) {
             my $species = $self->prefix2species($1);
@@ -22,16 +20,16 @@ sub check_for_redirect {
                 = $self->config->{multigenome}->{host} . '/' 
                 . $species
                 . '/gene/'
-                . $id;
+                . $given_id;
             $self->redirect_to($new_url);
             return;
         }
 
         #no redirection needed
-        return $self->validate($id);
+        return $self->validate($given_id);
     }
     else {
-        my $gene_id = $self->process_id($id);
+        my $gene_id = $self->process_id($given_id);
         if ( !$gene_id ) {
             $self->render('no_record');
             return;
