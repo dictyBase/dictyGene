@@ -20,7 +20,8 @@ sub startup {
     my $router = $self->routes();
 
     #routing setup
-    my $gene = $router->waypoint('/gene/:id')->via('get')->to('controller-page#index');
+    my $gene = $router->waypoint('/gene/:id')->via('get')->name('gene')
+        ->to('controller-page#index');
     my $tab = $gene->waypoint('/:tab')->via('get')
         ->to( 'controller-page#tab', format => 'html' );
     $tab->route('/:section')->via('get')

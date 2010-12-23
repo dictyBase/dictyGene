@@ -25,8 +25,8 @@ sub section_html {
         my $db = dicty::UI::Tabview::Page::Gene->new(
             -primary_id => $gene_id,
             -active_tab => $tab,
+            -base_url   => $self->url_for('gene'),
             -sub_id     => $section,
-            -base_url   => $self->stash('base_url')
         );
         $self->stash( $db->result() );
 
@@ -48,16 +48,17 @@ sub section_json {
         $factory = dicty::Factory::Tabview::Tab->new(
             -tab        => $tab,
             -primary_id => $section,
-            -base_url   => $self->stash('base_url')
+            -base_url   => $self->url_for('gene'),
+            -context    => $self
         );
     }
     else {
-
         $factory = dicty::Factory::Tabview::Section->new(
             -tab        => $tab,
             -primary_id => $gene_id,
             -section    => $section,
-            -base_url   => $self->stash('base_url')
+            -base_url   => $self->url_for('gene'),
+            -context    => $self
         );
     }
 
@@ -76,7 +77,8 @@ sub sub_section {
         -primary_id => $self->stash('subid'),
         -section    => $self->stash('section'),
         -tab        => $self->stash('tab'),
-        -base_url   => $self->stash('base_url')
+        -base_url   => $self->stash('base_url'),
+        -context    => $self,
     );
 
     my $obj = $factory->instantiate;
