@@ -411,7 +411,7 @@ span.cart_not_available{
 }
 span.shopping_cart{
     display:block;
-    background  :transparent url(../sprite_shopping_cart.gif) no-repeat scroll 0 -102px;
+    background  :transparent url(../images/sprite_shopping_cart.gif) no-repeat scroll 0 -102px;
     height:14px;
     width: 23px;
 }
