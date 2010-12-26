@@ -1,6 +1,5 @@
 #!/usr/bin/perl -w
 use strict;
-use local::lib '/home/ubuntu/dictyBase/Libs/modern-perl-dapper';
 use FindBin qw/$Bin/;
 use FCGI::Engine::Manager;
 use File::Spec::Functions;
