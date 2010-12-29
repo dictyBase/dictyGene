@@ -365,7 +365,7 @@ div.dicty-loader {
             
 
 img.dicty-gbrowse-image {
-	width: 0px;
+/*	width: 0px; */
 	height: 0px;
 	visibility: hidden;
 }
