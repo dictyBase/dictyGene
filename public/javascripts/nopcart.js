@@ -357,8 +357,8 @@ function GetCookie (name) {
 // PURPOSE:     Stores a cookie in the users browser                   ||
 //---------------------------------------------------------------------||
 function SetCookie (name,value,expires,path,domain,secure) {
-    alert(expires);
-    alert(expires.toGMTString());
+    //alert(expires);
+    //alert(expires.toGMTString());
    document.cookie = name + "=" + escape (value) +
                      ((expires) ? "; expires=" + expires.toGMTString() : "") +
                      ((path) ? "; path=" + path : "") +
