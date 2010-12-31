@@ -423,3 +423,7 @@ iframe.dicty-blast {
     height:750px;
     background-color:#F7F7F7;
 }
+iframe.dicty-domain {
+    visibility: hidden;
+    width: 630px;
+}
