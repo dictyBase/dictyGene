@@ -1,6 +1,9 @@
 #Ignore yaml files
 *.yaml
 
+#Ignore conf files
+*.conf
+
 #however exclude the following conf
 !sample.yaml
 !fcgi_conf.yaml
