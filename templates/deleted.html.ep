@@ -8,7 +8,8 @@
       <div class="wrapper-columns">
         <div class="column-center">
           <div id="column-center-content">
-						<div class="info"> OOoops!!!! <%= $id %></b> has been deleted from dictyBase.
+						<div class="info"> <p> OOoops!!!! <b><%= $id %></b> has been deleted from dictyBase.
+						</p>
 						</div>						
           </div>
 				</div>
