@@ -1,4 +1,4 @@
-package DictyRESTBuilder;
+package DictyGene::Builder;
 use File::Spec::Functions;
 use Carp;
 use File::Path;

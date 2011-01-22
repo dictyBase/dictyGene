@@ -17,7 +17,7 @@ Build
 _blib
 blib
 _build
-MANIFEST
+MANIFEST*
 MYMETA*
 META
 
