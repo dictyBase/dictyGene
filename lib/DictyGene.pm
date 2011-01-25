@@ -14,11 +14,17 @@ sub startup {
 
     if ( defined $self->config->{cache} ) {
         ## -- add the new cache plugin
-        $self->plugin('cache-action',  
-        	actions => [qw/index tab section sub_section/], 
-        	options => {
-        	  $self->config->{cache}
-        	}
+        $self->plugin(
+            'cache-action',
+            {   actions => [qw/index tab section sub_section/],
+                options => {
+                    driver     => $self->config->{cache}->{driver},
+                    root_dir   => $self->config->{cache}->{root_dir},
+                    namespace  => $self->config->{cache}->{namespace},
+                    depth      => $self->config->{cache}->{depth},
+                    expires_in => $self->config->{cache}->{expires_in}
+                }
+            }
         );
     }
     $self->plugin('dicty_gene');
