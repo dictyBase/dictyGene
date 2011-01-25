@@ -14,6 +14,12 @@ sub startup {
 
     if ( defined $self->config->{cache} ) {
         ## -- add the new cache plugin
+        $self->plugin('cache-action',  
+        	actions => [qw/index tab section sub_section/], 
+        	options => {
+        	  $self->config->{cache}
+        	}
+        );
     }
     $self->plugin('dicty_gene');
 
