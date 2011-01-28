@@ -54,8 +54,8 @@
         <%= $self->render_partial(template => $path.'/toolbar') %>
         <%= $self->render_inner %>
         <%= $self->render_partial(template => 'footer') %>
-				% if ($self->app->mode eq 'production') {
-					 % include 'google'
+				% if ($self->app->mode eq 'deploy') {
+					 %= include 'google'
 				% }
 
     </body>
