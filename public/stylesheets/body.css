@@ -161,17 +161,17 @@ body {
 #column-center-content td{
     vertical-align: middle;
 }
-.wrapper a:link{
+.container a:link{
 	color           : #0000ce;
 	text-decoration : none;
 }
-.wrapper a:active,
-.wrapper a:hover,
-.wrapper a:focus {
+.container a:active,
+.container a:hover,
+.container a:focus {
 	color           :#FF0000;
 	text-decoration :underline;
 }
-.wrapper a:visited {
+.container a:visited {
 	text-decoration :none;
 	color           :#0000CE;
 }
