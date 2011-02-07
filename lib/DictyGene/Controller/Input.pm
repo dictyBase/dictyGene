@@ -31,6 +31,7 @@ sub check_input {
     else {
         my $gene_id = $self->process_id($given_id);
         if ( !$gene_id ) {
+        	$self->res->code(404);
             $self->render('no_record');
             return;
         }
@@ -46,10 +47,12 @@ sub validate {
     if ( $gene_feat->is_deleted() ) {
         if ( my $replaced = $gene_feat->replaced_by() )
         {    #is it being replaced
-            $self->stash( 'replaced' => $replaced );
+        	$self->res->code(404);
+            $self->stash( 'replaced' => $replaced->[0] );
             $self->render('replaced');
         }
         else {
+        	$self->res->code(404);
             $self->render('deleted');
         }
         return;

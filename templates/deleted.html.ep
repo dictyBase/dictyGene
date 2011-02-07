@@ -9,6 +9,8 @@
         <div class="column-center">
           <div id="column-center-content">
 						<div class="info"> <p> <b><%= $id %></b> has been deleted from dictyBase.
+						<br/>
+						If you have questions please e-mail us at dictybase@northwestern.edu
 						</p>
 						</div>						
           </div>
