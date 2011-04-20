@@ -48,7 +48,7 @@ sub validate {
         if ( my $replaced = $gene_feat->replaced_by() )
         {    #is it being replaced
         	$self->res->code(404);
-            $self->stash( 'replaced' => $replaced->[0] );
+            $self->stash( 'replaced' => $replaced );
             $self->render('replaced');
         }
         else {

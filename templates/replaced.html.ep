@@ -11,7 +11,10 @@
 						<div class="info"> 
 						<p>
 							<b><%= $id %></b> has been deleted from dictyBase.
-							It has been replaced by <a href="/gene/<%= $replaced %>"><%= $replaced %></a>
+							It has been replaced by 
+								% for my $rep(@$replaced) {
+									<a href="/gene/<%= $rep %>"><%= $rep %></a> &nbsp;
+								% }
 						</p>
 						</div>						
           </div>
