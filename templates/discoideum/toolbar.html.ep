@@ -122,86 +122,101 @@
                         </div>
                       </div>
                     </li>
+<li class="yuimenubaritem">
+                                                <a class="yuimenubaritemlabel" href="#">Tools</a>
+                                                <div id="tools" class="yuimenu">
+                                                    <div class="bd">
+                                                        <ul>
+                                                            <li class="yuimenuitem">
+                                                                <a class="yuimenuitemlabel" href="#">Genome Browser</a>
+                                                                <div id="pim" class="yuimenu">
+                                                                    <div class="bd">
+                                                                        <ul class="first-of-type">
+                                                                            <li class="yuimenuitem">
+                                                                                <a class="yuimenuitemlabel" href="/db/cgi-bin/ggb/gbrowse/discoideum/?name=1:1..30000">Chromosome 1</a>
+                                                                            </li>
+                                                                            <li class="yuimenuitem">
+                                                                                <a class="yuimenuitemlabel" href="/db/cgi-bin/ggb/gbrowse/discoideum/?name=2:1..30000">Chromosome 2</a>
+                                                                            </li>
+                                                                            <li class="yuimenuitem">
+                                                                                <a class="yuimenuitemlabel" href="/db/cgi-bin/ggb/gbrowse/discoideum/?name=3:1..30000">Chromosome 3</a>
+                                                                            </li>
+                                                                            <li class="yuimenuitem">
+                                                                                <a class="yuimenuitemlabel" href="/db/cgi-bin/ggb/gbrowse/discoideum/?name=4:1..30000">Chromosome 4</a>
+                                                                            </li>
+                                                                            <li class="yuimenuitem">
+                                                                                <a class="yuimenuitemlabel" href="/db/cgi-bin/ggb/gbrowse/discoideum/?name=5:1..30000">Chromosome 5</a>
+                                                                            </li>
+                                                                            <li class="yuimenuitem">
+                                                                                <a class="yuimenuitemlabel" href="/db/cgi-bin/ggb/gbrowse/discoideum/?name=6:1..30000">Chromosome 6</a>
+                                                                            </li>
+                                                                            <li class="yuimenuitem">
+                                                                                <a class="yuimenuitemlabel" href="/db/cgi-bin/ggb/gbrowse/discoideum/?name=M:1..30000">Mitochondrial DNA</a>
+                                                                            </li>
+                                                                            <li class="yuimenuitem">
+                                                                                <a class="yuimenuitemlabel" href="/db/cgi-bin/ggb/gbrowse/discoideum/?name=R:1..30000">Ribosomal DNA</a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li class="yuimenuitem">
+                                                                <a class="yuimenuitemlabel" href="#">RNAseq Browser (beta)</a>
+                                                                <div class="yuimenu">
+                                                                    <div class="bd">
+                                                                        <ul class="first-of-type">
+                                                                            <li class="yuimenuitem">
+                                                                                <a class="yuimenuitemlabel" href="/tools/gbrowse2/discoideum/?name=1:1..30000">Chromosome 1</a>
+                                                                            </li>
+                                                                            <li class="yuimenuitem">
+                                                                                <a class="yuimenuitemlabel" href="/tools/gbrowse2/discoideum/?name=2:1..30000">Chromosome 2</a>
+                                                                            </li>
+                                                                            <li class="yuimenuitem">
+                                                                                <a class="yuimenuitemlabel" href="/tools/gbrowse2/discoideum/?name=3:1..30000">Chromosome 3</a>
+                                                                            </li>
+                                                                            <li class="yuimenuitem">
+                                                                                <a class="yuimenuitemlabel" href="/tools/gbrowse2/discoideum/?name=4:1..30000">Chromosome 4</a>
+                                                                            </li>
+                                                                            <li class="yuimenuitem">
+                                                                                <a class="yuimenuitemlabel" href="/tools/gbrowse2/discoideum/?name=5:1..30000">Chromosome 5</a>
+                                                                            </li>
+                                                                            <li class="yuimenuitem">
+                                                                                <a class="yuimenuitemlabel" href="/tools/gbrowse2/discoideum/?name=6:1..30000">Chromosome 6</a>
+                                                                            </li>
+                                                                            <li class="yuimenuitem">
+                                                                                <a class="yuimenuitemlabel" href="/tools/gbrowse2/discoideum/?name=M:1..30000">Mitochondrial DNA</a>
+                                                                            </li>
+                                                                            <li class="yuimenuitem">
+                                                                                <a class="yuimenuitemlabel" href="/tools/gbrowse2/discoideum/?name=R:1..30000">Ribosomal DNA</a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li class="yuimenuitem">
+                                                                <a class="yuimenuitemlabel" href="/tools/blast">BLAST</a>
+                                                            </li>
+                                                            <li class="yuimenuitem">
+                                                                <a class="yuimenuitemlabel" href="/tools/convert">ID Converter</a>
+                                                            </li>
+                                                            <li class="yuimenuitem">
+                                                                <a class="yuimenuitemlabel" href="/biomart/martview">dictyMart</a>
+                                                            </li>
+                                                            <li class="yuimenuitem">
+                                                                <a class="yuimenuitemlabel" href="http://www.textpresso.org/cgi-bin/dictybase/tfd.cgi">Textpresso</a>
+                                                            </li>
+                                                            <li class="yuimenuitem">
+                                                                <a class="yuimenuitemlabel" href="/Dicty_Info/dictycyc_info.html">Biochemical Pathways</a>
+                                                            </li>
+                                                            <li class="yuimenuitem">
+                                                                <a class="yuimenuitemlabel" href="/Downloads/Tools.html">Third Party Tools</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </li>
 
-                    <li class="yuimenubaritem">
-                      <a class="yuimenubaritemlabel" href="#">Tools</a>
-
-                      <div id="tools" class="yuimenu">
-                        <div class="bd">
-                          <ul>
-                            <li class="yuimenuitem">
-                              <a class="yuimenuitemlabel" href="#">Genome Browser</a>
-
-                              <div id="pim" class="yuimenu">
-                                <div class="bd">
-                                  <ul class="first-of-type">
-                                    <li class="yuimenuitem"><a class="yuimenuitemlabel"
-                                    href=
-                                    "/db/cgi-bin/ggb/gbrowse/discoideum/?name=1:1..30000">
-                                    Chromosome 1</a></li>
-
-                                    <li class="yuimenuitem"><a class="yuimenuitemlabel"
-                                    href=
-                                    "/db/cgi-bin/ggb/gbrowse/discoideum/?name=2:1..30000">
-                                    Chromosome 2</a></li>
-
-                                    <li class="yuimenuitem"><a class="yuimenuitemlabel"
-                                    href=
-                                    "/db/cgi-bin/ggb/gbrowse/discoideum/?name=3:1..30000">
-                                    Chromosome 3</a></li>
-
-                                    <li class="yuimenuitem"><a class="yuimenuitemlabel"
-                                    href=
-                                    "/db/cgi-bin/ggb/gbrowse/discoideum/?name=4:1..30000">
-                                    Chromosome 4</a></li>
-
-                                    <li class="yuimenuitem"><a class="yuimenuitemlabel"
-                                    href=
-                                    "/db/cgi-bin/ggb/gbrowse/discoideum/?name=5:1..30000">
-                                    Chromosome 5</a></li>
-
-                                    <li class="yuimenuitem"><a class="yuimenuitemlabel"
-                                    href=
-                                    "/db/cgi-bin/ggb/gbrowse/discoideum/?name=6:1..30000">
-                                    Chromosome 6</a></li>
-
-                                    <li class="yuimenuitem"><a class="yuimenuitemlabel"
-                                    href=
-                                    "/db/cgi-bin/ggb/gbrowse/discoideum/?name=M:1..30000">
-                                    Mitochondrial DNA</a></li>
-
-                                    <li class="yuimenuitem"><a class="yuimenuitemlabel"
-                                    href=
-                                    "/db/cgi-bin/ggb/gbrowse/discoideum/?name=R:1..30000">
-                                    Ribosomal DNA</a></li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </li>
-
-                            <li class="yuimenuitem"><a class="yuimenuitemlabel" href=
-                            "/tools/blast">BLAST</a></li>
-
-                            <li class="yuimenuitem"><a class="yuimenuitemlabel" href=
-                            "/tools/convert">ID Converter</a></li>
-
-                            <li class="yuimenuitem"><a class="yuimenuitemlabel" href=
-                            "/biomart/martview">dictyMart</a></li>
-
-                            <li class="yuimenuitem"><a class="yuimenuitemlabel" href=
-                            "http://www.textpresso.org/cgi-bin/dictybase/tfd.cgi">Textpresso</a></li>
-
-                            <li class="yuimenuitem"><a class="yuimenuitemlabel" href=
-                            "/Dicty_Info/dictycyc_info.html">Biochemical
-                            Pathways</a></li>
-
-                            <li class="yuimenuitem"><a class="yuimenuitemlabel" href=
-                            "/Downloads/Tools.html">Third Party Tools</a></li>
-                          </ul>
-                        </div>
-                      </div>
-                    </li>
-
+                    
                     <li class="yuimenubaritem">
                       <a class="yuimenubaritemlabel" href="#">Stock Center</a>
 
