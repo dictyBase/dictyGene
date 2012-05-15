@@ -1,0 +1,13 @@
+tab:
+ dynamic: feature
+
+database:
+ dsn: "dbi:<db>:host=<host-ip>;sid=<oracle-sid>"
+ user: <username>
+ password: 
+ opt: LongTruncOk
+
+
+
+
+
