@@ -1,6 +1,7 @@
 package DictyGene::Controller::Input;
 
 use strict;
+
 # Other modules:
 use dicty::Feature;
 use base qw/Mojolicious::Controller/;
@@ -10,7 +11,7 @@ use base qw/Mojolicious::Controller/;
 sub check_input {
     my ($self) = @_;
     my $given_id = $self->stash('id');
-    if ( $given_id =~ /^([A-Z]+_G)\d+$/)
+    if ( $given_id =~ /^([A-Z]+_G)\d+$/ )
     {    #it is a gene id,  now check which species it belong
         if ( $self->has_prefix($1) ) {
             my $species = $self->prefix2species($1);
@@ -31,7 +32,7 @@ sub check_input {
     else {
         my $gene_id = $self->process_id($given_id);
         if ( !$gene_id ) {
-        	$self->res->code(404);
+            $self->res->code(404);
             $self->render('no_record');
             return;
         }
@@ -47,13 +48,23 @@ sub validate {
     if ( $gene_feat->is_deleted() ) {
         if ( my $replaced = $gene_feat->replaced_by() )
         {    #is it being replaced
-        	$self->res->code(404);
+            $self->res->code(404);
             $self->stash( 'replaced' => $replaced );
             $self->render('replaced');
         }
         else {
-        	$self->res->code(404);
-            $self->render('deleted');
+            if ( $self->param('deleted') ) {
+                $self->stash(
+                    gene_id  => $gene_id,
+                    base_url => '/gene',
+                    species  => $self->species($gene_id)
+                );
+                return 1;
+            }
+            else {
+                $self->res->code(404);
+                $self->render('deleted');
+            }
         }
         return;
     }
