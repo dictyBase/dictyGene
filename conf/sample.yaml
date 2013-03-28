@@ -7,6 +7,16 @@ database:
  password: 
  opt: LongTruncOk
 
+tab:
+ dynamic: feature
+
+#host of the multigenome url
+##map of unique gene ID prefix to the species name for redirection
+#multigenome:
+  host: 'http://dpurvm'
+  prefix_list: 'DPU_G:'
+  DPU_G: purpureum
+
 
 
 
